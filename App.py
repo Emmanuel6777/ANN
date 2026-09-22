@@ -2,16 +2,10 @@ import streamlit as st
 import numpy as np
 import tensorflow as tf
 
-
-# Page title
-
 st.set_page_config(
     page_title="Employee Performance Predictor",
     page_icon="📊"
 )
-
-
-# App heading
 
 st.title("📊 Employee Performance Predictor")
 
@@ -19,15 +13,9 @@ st.write(
     "Enter Training Hours and Attendance to predict employee performance."
 )
 
-
-# Load trained ANN model
-
 model = tf.keras.models.load_model(
     "employee_performance_ann.keras"
 )
-
-
-# User inputs
 
 training_hours = st.number_input(
     "Training Hours",
@@ -45,27 +33,16 @@ attendance = st.number_input(
     step=1.0
 )
 
-
-# Prediction button
-
 if st.button("Predict Performance"):
-
-    # Prepare input
 
     input_data = np.array([
         [training_hours, attendance]
     ])
 
-
-    # ANN prediction
-
     probability = model.predict(
         input_data,
         verbose=0
     )[0][0]
-
-
-    # Convert probability into result
 
     if probability >= 0.5:
 
@@ -74,9 +51,6 @@ if st.button("Predict Performance"):
     else:
 
         result = "Needs Improvement"
-
-
-    # Display result
 
     st.subheader("Prediction Result")
 
